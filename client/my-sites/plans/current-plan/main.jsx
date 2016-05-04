@@ -11,13 +11,17 @@ import classNames from 'classnames';
  */
 import Main from 'components/main';
 import Card from 'components/card';
+import Button from 'components/button';
 import HappinessSupport from 'components/happiness-support';
 import JetpackPlanDetails from './jetpack';
 import PersonalPlanDetails from 'my-sites/upgrades/checkout-thank-you/personal-plan-details';
 import PremiumPlanDetails from 'my-sites/upgrades/checkout-thank-you/premium-plan-details';
 import BusinessPlanDetails from 'my-sites/upgrades/checkout-thank-you/business-plan-details';
 import PurchaseDetail from 'components/purchase-detail';
-import { getPlansBySite } from 'state/sites/plans/selectors';
+import {
+	getPlansBySite,
+	getCurrentPlan
+} from 'state/sites/plans/selectors';
 import { getSelectedSite } from 'state/ui/selectors';
 import { fetchSitePlans } from 'state/sites/plans/actions';
 import {
@@ -39,12 +43,42 @@ const PlanDetailsComponent = React.createClass( {
 		sitePlans: React.PropTypes.object.isRequired,
 		fetchPlans: React.PropTypes.func.isRequired
 	},
+
 	componentWillUpdate: function( props ) {
 		this.props.fetchPlans( props );
 	},
+
 	componentDidMount: function() {
 		this.props.fetchPlans();
 	},
+
+	getPurchaseInfo: function() {
+		const plan = this.props.currentPlan;
+
+		if ( ! plan ) {
+			return null;
+		}
+
+		const classes = classNames( 'current-plan__purchase-info', {
+			'is-expiring': plan.userFacingExpiryMoment < this.moment().add( 30, 'days' )
+		} );
+
+		console.log(plan);
+
+		return (
+			<div className={ classes }>
+				<span className="current-plan__expires-in">
+					{ this.translate( 'Expires on %s', {
+						args: plan.userFacingExpiryMoment.format( 'LL' )
+					} ) }
+				</span>
+				<Button compact>
+					{ this.translate( 'Renew Now' ) }
+				</Button>
+			</div>
+		);
+	},
+
 	render: function() {
 		const { selectedSite } = this.props;
 		const { hasLoadedFromServer } = this.props.sitePlans;
@@ -140,7 +174,6 @@ const PlanDetailsComponent = React.createClass( {
 								} ) }>
 									{ title }
 								</h1>
-
 								<h2 className={ classNames( {
 									'current-plan__header-text': true,
 									'is-placeholder': ! hasLoadedFromServer
@@ -150,6 +183,11 @@ const PlanDetailsComponent = React.createClass( {
 							</div>
 						</div>
 					</div>
+					<Card compact>
+						{ this.getPurchaseInfo() }
+					</Card>
+				</Card>
+				<Card>
 					{ featuresList }
 				</Card>
 				<Card>
@@ -179,7 +217,8 @@ export default connect(
 		return {
 			selectedSite: getSelectedSite( state ),
 			sitePlans: getPlansBySite( state, getSelectedSite( state ) ),
-			context: ownProps.context
+			context: ownProps.context,
+			currentPlan: getCurrentPlan( state, getSelectedSite( state ).ID )
 		};
 	},
 
