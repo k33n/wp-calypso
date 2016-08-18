@@ -19,6 +19,7 @@ import FormTextInput from 'components/forms/form-text-input';
 import FormPasswordInput from 'components/forms/form-password-input';
 import FormButton from 'components/forms/form-button';
 import FormSettingExplanation from 'components/forms/form-setting-explanation';
+import SpinnerButton from 'components/button/spinner-button';
 
 export const Username = localize( props =>
 	<FormFieldset className="host-credentials-page__account-username-fieldset">
@@ -30,6 +31,7 @@ export const Username = localize( props =>
 		<FormTextInput
 			id="username"
 			value={ props.value }
+			disabled={ props.disabled }
 			onChange={ props.onChange }
 			placeholder={ props.translate( 'Username' ) } />
 	</FormFieldset>
@@ -47,6 +49,7 @@ export const Password = localize( props =>
 			autoCapitalize="off"
 			autoComplete="off"
 			autoCorrect="off"
+			disabled={ props.disabled }
 			value={ props.value }
 			onChange={ props.onChange }
 			placeholder={ props.translate( 'Password' ) } />
@@ -65,6 +68,7 @@ export const Email = localize( props =>
 		<FormTextInput
 			id="email"
 			value={ props.value }
+			disabled={ props.disabled }
 			onChange={ props.onChange }
 			placeholder={ props.translate( 'Email address' ) } />
 	</FormFieldset>
@@ -94,6 +98,7 @@ export const WPOrgURL = localize( props =>
 		<FormTextInput
 			id="wporg_url"
 			value={ props.value }
+			disabled={ props.disabled }
 			onChange={ props.onChange }
 			placeholder={ props.translate( 'new-site.com' ) } />
 	</FormFieldset>
@@ -101,6 +106,11 @@ export const WPOrgURL = localize( props =>
 
 export const SubmitSection = localize( props =>
 	<CompactCard>
-		<FormButton onClick={ props.submit }>Continue</FormButton>
+		<SpinnerButton
+			onClick={ props.submit }
+			text={ props.translate( 'Continue' ) }
+			loadingText={ props.translate( 'Saving…' ) }
+			loading={ props.isSubmitting }
+		/>
 	</CompactCard>
 );
