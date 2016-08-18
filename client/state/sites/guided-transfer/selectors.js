@@ -29,3 +29,8 @@ export function isGuidedTransferAwaitingPurchase( state, siteId ) {
 	return ( ! status.upgrade_purchased ) &&
 		status.host_details_entered;
 }
+
+export function isGuidedTransferSavingHostDetails( state, siteId ) {
+	const status = state.sites.guidedTransfer.isSaving[ siteId ];
+	return !! status;
+}

@@ -76,7 +76,10 @@ export default React.createClass( {
 
 				<div className="guided-transfer__content">
 					{ hostInfo
-						? <HostCredentialsPage hostSlug={ this.props.hostSlug } hostInfo={ hostInfo } />
+						? <HostCredentialsPage
+							siteId={ this.props.siteId }
+							hostSlug={ this.props.hostSlug }
+							hostInfo={ hostInfo } />
 						: <HostSelect hosts={ hosts } />
 					}
 				</div>

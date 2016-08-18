@@ -8,7 +8,8 @@ import deepFreeze from 'deep-freeze';
  * Internal dependencies
  */
 import {
-	isRequestingGuidedTransferStatus
+	isRequestingGuidedTransferStatus,
+	isGuidedTransferSavingHostDetails,
 } from '../selectors';
 
 describe( 'selectors', () => {
@@ -56,6 +57,52 @@ describe( 'selectors', () => {
 			} );
 
 			expect( isRequestingGuidedTransferStatus( state, testSiteId ) ).to.be.false;
+		} );
+	} );
+
+
+	describe( '#isGuidedTransferSavingHostDetails()', () => {
+		it( 'should return false for default state {}', () => {
+			const state = deepFreeze( {
+				sites: {
+					guidedTransfer: {
+						isSaving: {},
+					}
+				}
+			} );
+
+			expect( isGuidedTransferSavingHostDetails( state, testSiteId ) ).to.be.false;
+		} );
+
+		it( 'should return true when a request is underway', () => {
+			const state = deepFreeze( {
+				sites: {
+					guidedTransfer: {
+						isSaving: {
+							1: false,
+							[ testSiteId ]: true,
+						},
+					}
+				}
+			} );
+
+			expect( isGuidedTransferSavingHostDetails( state, testSiteId ) ).to.be.true;
+		} );
+
+
+		it( 'should return false when a isFetching is false', () => {
+			const state = deepFreeze( {
+				sites: {
+					guidedTransfer: {
+						isSaving: {
+							1: true,
+							[ testSiteId ]: false,
+						},
+					}
+				}
+			} );
+
+			expect( isGuidedTransferSavingHostDetails( state, testSiteId ) ).to.be.false;
 		} );
 	} );
 } );

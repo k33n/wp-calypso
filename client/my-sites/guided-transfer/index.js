@@ -14,6 +14,7 @@ function mapStateToProps( state ) {
 	const siteId = getSelectedSiteId( state );
 	const siteSlug = getSiteSlug( state, siteId );
 	return {
+		siteId,
 		siteSlug,
 	};
 }
