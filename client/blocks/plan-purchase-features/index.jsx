@@ -3,7 +3,6 @@
  */
 import React, { Component, PropTypes } from 'react';
 import { localize } from 'i18n-calypso';
-import { connect } from 'react-redux';
 import { find } from 'lodash';
 
 /**
@@ -35,8 +34,6 @@ import JetpackBackupSecurity from './jetpack-backup-security';
 import JetpackReturnToDashboard from './jetpack-return-to-dashboard';
 import JetpackSurveysPolls from './jetpack-surveys-polls';
 import JetpackWordPressCom from './jetpack-wordpress-com';
-import { getPlansBySite } from 'state/sites/plans/selectors';
-import { getSelectedSite } from 'state/ui/selectors';
 import {
 	isPremium as isWpcomPremium,
 	isBusiness as isWpcomBusiness
@@ -48,7 +45,8 @@ class PlanPurchaseFeatures extends Component {
 		plan: PropTypes
 			.oneOf( [ PLAN_FREE, PLAN_PERSONAL, PLAN_PREMIUM, PLAN_BUSINESS ] )
 			.isRequired,
-		selectedSite: PropTypes.object
+		selectedSite: PropTypes.object,
+		sitePlans: PropTypes.object
 	};
 
 	getBusinessFeatures() {
@@ -341,15 +339,4 @@ class PlanPurchaseFeatures extends Component {
 	}
 }
 
-export default connect( ( state, ownProps ) => {
-	let selectedSite = getSelectedSite( state );
-
-	if ( ownProps.selectedSite && ! selectedSite ) {
-		selectedSite = ownProps.selectedSite;
-	}
-
-	return {
-		selectedSite,
-		sitePlans: getPlansBySite( state, getSelectedSite( state ) )
-	};
-} )( localize( PlanPurchaseFeatures ) );
+export default localize( PlanPurchaseFeatures );
