@@ -127,9 +127,8 @@ class PlanPurchaseFeatures extends Component {
 				selectedSite={ selectedSite }
 				key="currentPlanHeaderFeature"
 				hasLoadedFromServer={ hasLoadedFromServer }
-				title={ translate( 'Your site is on a Business plan' ) }
-				tagLine={ translate( 'Learn more about everything included with Business and take advantage of' +
-					' its professional features.' ) }
+				title={ translate( 'Your site is on a Premium plan' ) }
+				tagLine={ translate( 'Unlock the full potential of your site with the premium features included in your plan.' ) }
 			/>,
 			<CustomDomain
 				selectedSite={ selectedSite }
@@ -180,9 +179,8 @@ class PlanPurchaseFeatures extends Component {
 				selectedSite={ selectedSite }
 				key="currentPlanHeaderFeature"
 				hasLoadedFromServer={ hasLoadedFromServer }
-				title={ translate( 'Your site is on a Business plan' ) }
-				tagLine={ translate( 'Learn more about everything included with Business and take advantage of' +
-					' its professional features.' ) }
+				title={ translate( 'Your site is on a Personal plan' ) }
+				tagLine={ translate( 'Unlock the full potential of your site with all the features included in your plan.' ) }
 			/>,
 			<CustomDomain
 				selectedSite={ selectedSite }
@@ -201,9 +199,26 @@ class PlanPurchaseFeatures extends Component {
 	}
 
 	getJetpackFreeFeatures() {
-		const {	selectedSite } = this.props;
+		const {
+			selectedSite,
+			sitePlans,
+			translate
+		} = this.props;
+
+		const hasLoadedFromServer = sitePlans.hasLoadedFromServer;
 
 		return [
+			<CurrentPlanHeader
+				selectedSite={ selectedSite }
+				key="currentPlanHeaderFeature"
+				hasLoadedFromServer={ hasLoadedFromServer }
+				title={ translate( 'Your site is on a Free plan' ) }
+				tagLine={ translate( 'Unlock the full potential of your site with all the features included in your plan.' ) }
+			/>,
+			<HappinessSupport
+				selectedSite={ selectedSite }
+				key="hapinessSupportFeature"
+			/>,
 			<JetpackWordPressCom
 				selectedSite={ selectedSite }
 				key="jetpackWordPressCom"
@@ -216,19 +231,64 @@ class PlanPurchaseFeatures extends Component {
 	}
 
 	getJetpackPremiumFeatures() {
+		const {
+			selectedSite,
+			sitePlans,
+			translate
+		} = this.props;
+
+		const hasLoadedFromServer = sitePlans.hasLoadedFromServer;
+
 		return [
+			<CurrentPlanHeader
+				selectedSite={ selectedSite }
+				key="currentPlanHeaderFeature"
+				hasLoadedFromServer={ hasLoadedFromServer }
+				title={ translate( 'Your site is on a Premium plan' ) }
+				tagLine={ translate( 'Unlock the full potential of your site with all the features included in your plan.' ) }
+			/>,
+			<HappinessSupport
+				selectedSite={ selectedSite }
+				key="hapinessSupportFeature"
+			/>,
 			<JetpackBackupSecurity
 				key="jetpackBackupSecurity"
 			/>,
 			<JetpackAntiSpam
 				key="jetpackAntiSpam"
 			/>,
-			this.getJetpackFreeFeatures()
+			<JetpackWordPressCom
+				selectedSite={ selectedSite }
+				key="jetpackWordPressCom"
+			/>,
+			<JetpackReturnToDashboard
+				selectedSite={ selectedSite }
+				key="jetpackReturnToDashboard"
+			/>
 		];
 	}
 
 	getJetpackBusinessFeatures() {
+		const {
+			selectedSite,
+			sitePlans,
+			translate
+		} = this.props;
+
+		const hasLoadedFromServer = sitePlans.hasLoadedFromServer;
+
 		return [
+			<CurrentPlanHeader
+				selectedSite={ selectedSite }
+				key="currentPlanHeaderFeature"
+				hasLoadedFromServer={ hasLoadedFromServer }
+				title={ translate( 'Your site is on a Professional plan' ) }
+				tagLine={ translate( 'Unlock the full potential of your site with all the features included in your plan.' ) }
+			/>,
+			<HappinessSupport
+				selectedSite={ selectedSite }
+				key="hapinessSupportFeature"
+			/>,
 			<JetpackBackupSecurity
 				key="jetpackBackupSecurity"
 			/>,
@@ -238,7 +298,14 @@ class PlanPurchaseFeatures extends Component {
 			<JetpackSurveysPolls
 				key="jetpackSurveysPolls"
 			/>,
-			this.getJetpackFreeFeatures()
+			<JetpackWordPressCom
+				selectedSite={ selectedSite }
+				key="jetpackWordPressCom"
+			/>,
+			<JetpackReturnToDashboard
+				selectedSite={ selectedSite }
+				key="jetpackReturnToDashboard"
+			/>
 		];
 	}
 
