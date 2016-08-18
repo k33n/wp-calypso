@@ -22,6 +22,12 @@ class CurrentPlan extends Component {
 		sitePlans: PropTypes.object
 	};
 
+	isLoading() {
+		const { selectedSite, sitePlans } = this.props;
+
+		return ! selectedSite || ! sitePlans.hasLoadedFromServer;
+	}
+
 	render() {
 		const {
 			selectedSite,
@@ -31,10 +37,6 @@ class CurrentPlan extends Component {
 		} = this.props;
 
 		const currentPlan = selectedSite.plan.product_slug;
-
-		if ( ! sitePlans.hasLoadedFromServer ) {
-			return null;
-		}
 
 		return (
 			<Main className="current-plan" wideLayout>
@@ -52,6 +54,7 @@ class CurrentPlan extends Component {
 					selectedSite={ selectedSite }
 					sitePlans={ sitePlans }
 					page="current-plan"
+					isPlaceholder={ this.isLoading() }
 				/>
 
 				<TrackComponentView eventName={ 'calypso_plans_my-plan_view' } />

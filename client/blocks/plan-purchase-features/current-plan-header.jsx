@@ -11,9 +11,9 @@ import PlanIcon from 'components/plans/plan-icon';
 
 export default ( {
 	selectedSite,
-	hasLoadedFromServer,
 	title,
-	tagLine
+	tagLine,
+	isPlaceholder
 } ) => {
 	const currentPlan = selectedSite.plan.product_slug;
 
@@ -28,18 +28,16 @@ export default ( {
 				</div>
 				<div className="plan-purchase-features__header-copy">
 					<h1 className={
-						classNames( {
-							'plan-purchase-features__header-heading': true,
-							'is-placeholder': ! hasLoadedFromServer
+						classNames( 'plan-purchase-features__header-heading', {
+							'is-placeholder': isPlaceholder
 						} )
 					} >
 						{ title }
 					</h1>
 
 					<h2 className={
-						classNames( {
-							'plan-purchase-features__header-text': true,
-							'is-placeholder': ! hasLoadedFromServer
+						classNames( 'plan-purchase-features__header-text', {
+							'is-placeholder': isPlaceholder
 						} )
 					} >
 						{ tagLine }

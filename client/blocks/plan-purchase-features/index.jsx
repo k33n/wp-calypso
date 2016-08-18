@@ -4,6 +4,7 @@
 import React, { Component, PropTypes } from 'react';
 import { localize } from 'i18n-calypso';
 import { find } from 'lodash';
+import classNames from 'classnames';
 
 /**
  * Internal dependencies
@@ -50,7 +51,12 @@ class PlanPurchaseFeatures extends Component {
 		sitePlans: PropTypes.object,
 		page: PropTypes
 			.oneOf( [ 'current-plan', 'checkout-thank-you' ] )
-			.isRequired
+			.isRequired,
+		isPlaceholder: PropTypes.bool
+	};
+
+	static defaultProps = {
+		isPlaceholder: false
 	};
 
 	getBusinessFeatures() {
@@ -221,7 +227,11 @@ class PlanPurchaseFeatures extends Component {
 	}
 
 	getPlanPurchaseFeatures() {
-		const { plan } = this.props;
+		const { plan, isPlaceholder } = this.props;
+
+		if ( isPlaceholder ) {
+			return null;
+		}
 
 		switch ( plan ) {
 			case PLAN_BUSINESS:
@@ -270,10 +280,8 @@ class PlanPurchaseFeatures extends Component {
 		const {
 			page,
 			selectedSite,
-			sitePlans
+			isPlaceholder
 		} = this.props;
-
-		const hasLoadedFromServer = sitePlans.hasLoadedFromServer;
 
 		if ( page === 'current-plan' ) {
 			const { title, tagLine } = this.getPlanHeaderWording();
@@ -282,22 +290,29 @@ class PlanPurchaseFeatures extends Component {
 				<CurrentPlanHeader
 					selectedSite={ selectedSite }
 					key="currentPlanHeaderFeature"
-					hasLoadedFromServer={ hasLoadedFromServer }
 					title={ title }
 					tagLine={ tagLine }
+					isPlaceholder={ isPlaceholder }
 				/>,
 				<HappinessSupport
 					selectedSite={ selectedSite }
 					key="hapinessSupportFeature"
+					isPlaceholder={ isPlaceholder }
 				/>
 			];
 		}
 	}
 
 	render() {
+		const { isPlaceholder } = this.props;
+
+		const headerClasses = classNames( 'plan-purchase-features__header', {
+			'is-placeholder': isPlaceholder
+		} );
+
 		return (
 			<div className="plan-purchase-features">
-				<div className="plan-purchase-features__header">
+				<div className={ headerClasses }>
 					{ this.getPlanPurchaseHeader() }
 				</div>
 				<div className="plan-purchase-features__list">

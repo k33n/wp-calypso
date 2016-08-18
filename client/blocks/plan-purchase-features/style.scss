@@ -68,14 +68,6 @@
 }
 
 .plan-purchase-features__header.is-placeholder {
-	@include breakpoint( "<660px" ) {
-		padding-top: 170px;
-	}
-
-	@include breakpoint( ">660px" ) {
-		padding-left: 190px;
-	}
-
 	.plan-purchase-features__header-icon {
 		display: none;
 	}
