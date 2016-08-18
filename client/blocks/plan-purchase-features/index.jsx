@@ -28,17 +28,18 @@ import MonetizeSite from './monetize-site';
 import CustomDomain from './custom-domain';
 import GoogleAnalyticsStats from './google-analytics-stats';
 import HappinessSupport from './happiness-support';
-import CurrentPlanHeader from './current-plan-header';
 import JetpackAntiSpam from './jetpack-anti-spam';
 import JetpackBackupSecurity from './jetpack-backup-security';
 import JetpackReturnToDashboard from './jetpack-return-to-dashboard';
 import JetpackSurveysPolls from './jetpack-surveys-polls';
 import JetpackWordPressCom from './jetpack-wordpress-com';
+import CurrentPlanHeader from './current-plan-header';
 import {
 	isPremium as isWpcomPremium,
 	isBusiness as isWpcomBusiness
 } from 'lib/products-values';
 import { isWordadsInstantActivationEligible } from 'lib/ads/utils';
+import { plansList } from 'lib/plans/constants';
 
 class PlanPurchaseFeatures extends Component {
 	static propTypes = {
@@ -46,28 +47,21 @@ class PlanPurchaseFeatures extends Component {
 			.oneOf( [ PLAN_FREE, PLAN_PERSONAL, PLAN_PREMIUM, PLAN_BUSINESS ] )
 			.isRequired,
 		selectedSite: PropTypes.object,
-		sitePlans: PropTypes.object
+		sitePlans: PropTypes.object,
+		page: PropTypes
+			.oneOf( [ 'current-plan', 'checkout-thank-you' ] )
+			.isRequired
 	};
 
 	getBusinessFeatures() {
 		const {
 			selectedSite,
 			sitePlans,
-			translate
 		} = this.props;
 
-		const plan = find( sitePlans.data, isWpcomBusiness ),
-			hasLoadedFromServer = sitePlans.hasLoadedFromServer;
+		const plan = find( sitePlans.data, isWpcomBusiness );
 
 		return [
-			<CurrentPlanHeader
-				selectedSite={ selectedSite }
-				key="currentPlanHeaderFeature"
-				hasLoadedFromServer={ hasLoadedFromServer }
-				title={ translate( 'Your site is on a Business plan' ) }
-				tagLine={ translate( 'Learn more about everything included with Business and take advantage of' +
-					' its professional features.' ) }
-			/>,
 			<CustomDomain
 				selectedSite={ selectedSite }
 				hasDomainCredit={ plan && plan.hasDomainCredit }
@@ -80,10 +74,6 @@ class PlanPurchaseFeatures extends Component {
 			<GoogleVouchers
 				selectedSite={ selectedSite }
 				key="googleVouchersFeature"
-			/>,
-			<HappinessSupport
-				selectedSite={ selectedSite }
-				key="hapinessSupportFeature"
 			/>,
 			<CustomizeTheme
 				selectedSite={ selectedSite }
@@ -114,20 +104,11 @@ class PlanPurchaseFeatures extends Component {
 		const {
 			selectedSite,
 			sitePlans,
-			translate
 		} = this.props;
 
-		const plan = find( sitePlans.data, isWpcomPremium ),
-			hasLoadedFromServer = sitePlans.hasLoadedFromServer;
+		const plan = find( sitePlans.data, isWpcomPremium );
 
 		return [
-			<CurrentPlanHeader
-				selectedSite={ selectedSite }
-				key="currentPlanHeaderFeature"
-				hasLoadedFromServer={ hasLoadedFromServer }
-				title={ translate( 'Your site is on a Premium plan' ) }
-				tagLine={ translate( 'Unlock the full potential of your site with the premium features included in your plan.' ) }
-			/>,
 			<CustomDomain
 				selectedSite={ selectedSite }
 				hasDomainCredit={ plan && plan.hasDomainCredit }
@@ -140,10 +121,6 @@ class PlanPurchaseFeatures extends Component {
 			<GoogleVouchers
 				selectedSite={ selectedSite }
 				key="googleVouchersFeature"
-			/>,
-			<HappinessSupport
-				selectedSite={ selectedSite }
-				key="hapinessSupportFeature"
 			/>,
 			<CustomizeTheme
 				selectedSite={ selectedSite }
@@ -166,20 +143,11 @@ class PlanPurchaseFeatures extends Component {
 		const {
 			selectedSite,
 			sitePlans,
-			translate
 		} = this.props;
 
-		const plan = find( sitePlans.data, isWpcomPremium ),
-			hasLoadedFromServer = sitePlans.hasLoadedFromServer;
+		const plan = find( sitePlans.data, isWpcomPremium );
 
 		return [
-			<CurrentPlanHeader
-				selectedSite={ selectedSite }
-				key="currentPlanHeaderFeature"
-				hasLoadedFromServer={ hasLoadedFromServer }
-				title={ translate( 'Your site is on a Personal plan' ) }
-				tagLine={ translate( 'Unlock the full potential of your site with all the features included in your plan.' ) }
-			/>,
 			<CustomDomain
 				selectedSite={ selectedSite }
 				hasDomainCredit={ plan && plan.hasDomainCredit }
@@ -188,35 +156,14 @@ class PlanPurchaseFeatures extends Component {
 			<AdvertisingRemoved
 				isBusinessPlan={ false }
 				key="advertisingRemovedFeature"
-			/>,
-			<HappinessSupport
-				selectedSite={ selectedSite }
-				key="hapinessSupportFeature"
 			/>
 		];
 	}
 
 	getJetpackFreeFeatures() {
-		const {
-			selectedSite,
-			sitePlans,
-			translate
-		} = this.props;
-
-		const hasLoadedFromServer = sitePlans.hasLoadedFromServer;
+		const {	selectedSite } = this.props;
 
 		return [
-			<CurrentPlanHeader
-				selectedSite={ selectedSite }
-				key="currentPlanHeaderFeature"
-				hasLoadedFromServer={ hasLoadedFromServer }
-				title={ translate( 'Your site is on a Free plan' ) }
-				tagLine={ translate( 'Unlock the full potential of your site with all the features included in your plan.' ) }
-			/>,
-			<HappinessSupport
-				selectedSite={ selectedSite }
-				key="hapinessSupportFeature"
-			/>,
 			<JetpackWordPressCom
 				selectedSite={ selectedSite }
 				key="jetpackWordPressCom"
@@ -229,26 +176,9 @@ class PlanPurchaseFeatures extends Component {
 	}
 
 	getJetpackPremiumFeatures() {
-		const {
-			selectedSite,
-			sitePlans,
-			translate
-		} = this.props;
-
-		const hasLoadedFromServer = sitePlans.hasLoadedFromServer;
+		const {	selectedSite } = this.props;
 
 		return [
-			<CurrentPlanHeader
-				selectedSite={ selectedSite }
-				key="currentPlanHeaderFeature"
-				hasLoadedFromServer={ hasLoadedFromServer }
-				title={ translate( 'Your site is on a Premium plan' ) }
-				tagLine={ translate( 'Unlock the full potential of your site with all the features included in your plan.' ) }
-			/>,
-			<HappinessSupport
-				selectedSite={ selectedSite }
-				key="hapinessSupportFeature"
-			/>,
 			<JetpackBackupSecurity
 				key="jetpackBackupSecurity"
 			/>,
@@ -267,26 +197,9 @@ class PlanPurchaseFeatures extends Component {
 	}
 
 	getJetpackBusinessFeatures() {
-		const {
-			selectedSite,
-			sitePlans,
-			translate
-		} = this.props;
-
-		const hasLoadedFromServer = sitePlans.hasLoadedFromServer;
+		const {	selectedSite } = this.props;
 
 		return [
-			<CurrentPlanHeader
-				selectedSite={ selectedSite }
-				key="currentPlanHeaderFeature"
-				hasLoadedFromServer={ hasLoadedFromServer }
-				title={ translate( 'Your site is on a Professional plan' ) }
-				tagLine={ translate( 'Unlock the full potential of your site with all the features included in your plan.' ) }
-			/>,
-			<HappinessSupport
-				selectedSite={ selectedSite }
-				key="hapinessSupportFeature"
-			/>,
 			<JetpackBackupSecurity
 				key="jetpackBackupSecurity"
 			/>,
@@ -330,10 +243,66 @@ class PlanPurchaseFeatures extends Component {
 		}
 	}
 
+	getPlanHeaderWording() {
+		const { plan, translate } = this.props;
+
+		const planConstObj = plansList[ plan ],
+			title = translate( 'Your site is on a %(planName)s plan', {
+				args: {
+					planName: planConstObj.getTitle()
+				}
+			} );
+
+		let tagLine = translate( 'Unlock the full potential of your site with all the features included in your plan.' );
+
+		if ( plan === PLAN_BUSINESS ) {
+			tagLine = translate( 'Learn more about everything included with Business and take advantage of' +
+				' its professional features.' );
+		}
+
+		return {
+			title: title,
+			tagLine: tagLine
+		};
+	}
+
+	getPlanPurchaseHeader() {
+		const {
+			page,
+			selectedSite,
+			sitePlans
+		} = this.props;
+
+		const hasLoadedFromServer = sitePlans.hasLoadedFromServer;
+
+		if ( page === 'current-plan' ) {
+			const { title, tagLine } = this.getPlanHeaderWording();
+
+			return [
+				<CurrentPlanHeader
+					selectedSite={ selectedSite }
+					key="currentPlanHeaderFeature"
+					hasLoadedFromServer={ hasLoadedFromServer }
+					title={ title }
+					tagLine={ tagLine }
+				/>,
+				<HappinessSupport
+					selectedSite={ selectedSite }
+					key="hapinessSupportFeature"
+				/>
+			];
+		}
+	}
+
 	render() {
 		return (
 			<div className="plan-purchase-features">
-				{ this.getPlanPurchaseFeatures() }
+				<div className="plan-purchase-features__header">
+					{ this.getPlanPurchaseHeader() }
+				</div>
+				<div className="plan-purchase-features__list">
+					{ this.getPlanPurchaseFeatures() }
+				</div>
 			</div>
 		);
 	}

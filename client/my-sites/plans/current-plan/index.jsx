@@ -51,6 +51,7 @@ class CurrentPlan extends Component {
 					plan={ currentPlan }
 					selectedSite={ selectedSite }
 					sitePlans={ sitePlans }
+					page="current-plan"
 				/>
 
 				<TrackComponentView eventName={ 'calypso_plans_my-plan_view' } />

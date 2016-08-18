@@ -1,4 +1,4 @@
-.plan-purchase-features {
+.plan-purchase-features__list, .plan-purchase-features__header {
 	@include breakpoint( ">1040px" ) {
 		column-count: 2;
 		column-gap: 12px;
@@ -35,6 +35,10 @@
 		border: 1px solid lighten( $gray, 30% );
 		text-align: left;
 	}
+}
+
+.plan-purchase-features__current-plan-header {
+	@include clear-fix;
 }
 
 .plan-purchase-features__header-icon {
