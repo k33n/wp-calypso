@@ -7,11 +7,11 @@ import React from 'react';
  * Internal Dependencies
  */
 import { renderWithReduxStore } from 'lib/react-helpers';
-import CurrentPlanOverview from './main';
+import CurrentPlan from './';
 
 export default function( context ) {
 	renderWithReduxStore(
-		React.createElement( CurrentPlanOverview, {
+		React.createElement( CurrentPlan, {
 			context: context
 		} ),
 		document.getElementById( 'primary' ),
