@@ -3,6 +3,7 @@
  */
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import page from 'page';
 
 /**
  * Internal Dependencies
@@ -15,6 +16,7 @@ import PlansNavigation from 'my-sites/upgrades/navigation';
 import PlanPurchaseFeatures from 'blocks/plan-purchase-features';
 import QuerySites from 'components/data/query-sites';
 import QuerySitePlans from 'components/data/query-site-plans';
+import { isFreePlan } from 'lib/products-values';
 
 class CurrentPlan extends Component {
 	static propTypes = {
@@ -28,6 +30,16 @@ class CurrentPlan extends Component {
 		return ! selectedSite || ! sitePlans.hasLoadedFromServer;
 	}
 
+	redirectToPlans() {
+		const { selectedSite } = this.props;
+
+		if ( ! selectedSite ) {
+			return;
+		}
+
+		page.redirect( `/plans/${ selectedSite.slug }` );
+	}
+
 	render() {
 		const {
 			selectedSite,
@@ -36,7 +48,13 @@ class CurrentPlan extends Component {
 			context
 		} = this.props;
 
-		const currentPlan = selectedSite.plan.product_slug;
+		const currentPlan = selectedSite.plan,
+			currentPlanSlug = selectedSite.plan.product_slug,
+			isLoading = this.isLoading();
+
+		if ( isFreePlan( currentPlan ) ) {
+			this.redirectToPlans();
+		}
 
 		return (
 			<Main className="current-plan" wideLayout>
@@ -50,11 +68,11 @@ class CurrentPlan extends Component {
 				/>
 
 				<PlanPurchaseFeatures
-					plan={ currentPlan }
+					plan={ currentPlanSlug }
 					selectedSite={ selectedSite }
 					sitePlans={ sitePlans }
 					page="current-plan"
-					isPlaceholder={ this.isLoading() }
+					isPlaceholder={ isLoading }
 				/>
 
 				<TrackComponentView eventName={ 'calypso_plans_my-plan_view' } />
