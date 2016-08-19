@@ -78,8 +78,10 @@ export default React.createClass( {
 					{ hostInfo
 						? <HostCredentialsPage
 							siteId={ this.props.siteId }
+							siteSlug={ this.props.siteSlug }
 							hostSlug={ this.props.hostSlug }
-							hostInfo={ hostInfo } />
+							hostInfo={ hostInfo }
+						/>
 						: <HostSelect hosts={ hosts } />
 					}
 				</div>
