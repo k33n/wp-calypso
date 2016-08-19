@@ -59,6 +59,7 @@ const PlanDetailsComponent = React.createClass( {
 			return null;
 		}
 
+		const hasAutoRenew = plan.auto_renew;
 		const classes = classNames( 'current-plan__purchase-info', {
 			'is-expiring': plan.userFacingExpiryMoment < this.moment().add( 30, 'days' )
 		} );
@@ -66,13 +67,17 @@ const PlanDetailsComponent = React.createClass( {
 		return (
 			<div className={ classes }>
 				<span className="current-plan__expires-in">
-					{ this.translate( 'Expires on %s', {
-						args: plan.userFacingExpiryMoment.format( 'LL' )
-					} ) }
+					{ hasAutoRenew
+						? this.translate( 'Set to Auto Renew on %s.', { args: plan.userFacingExpiryMoment.format( 'LL' ) } )
+						: this.translate( 'Expires on %s.', { args: plan.userFacingExpiryMoment.format( 'LL' ) } )
+					}
 				</span>
 				{ plan.userIsOwner &&
 					<Button compact href={ `/purchases/${ this.props.selectedSite.slug }/${ plan.id }` }>
-						{ this.translate( 'Renew Now' ) }
+						{ hasAutoRenew
+							? this.translate( 'Manage Payment' )
+							: this.translate( 'Renew Now' )
+						}
 					</Button>
 				}
 			</div>
