@@ -17,7 +17,6 @@ import FormFieldset from 'components/forms/form-fieldset';
 import FormLabel from 'components/forms/form-label';
 import FormTextInput from 'components/forms/form-text-input';
 import FormPasswordInput from 'components/forms/form-password-input';
-import FormButton from 'components/forms/form-button';
 import FormSettingExplanation from 'components/forms/form-setting-explanation';
 import SpinnerButton from 'components/button/spinner-button';
 
