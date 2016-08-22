@@ -15,6 +15,8 @@ const Main = require( 'components/main' ),
 	MeSidebarNavigation = require( 'me/sidebar-navigation' ),
 	HelpSearch = require( './help-search' ),
 	CompactCard = require( 'components/card/compact' ),
+	Card = require( 'components/card' ),
+	Gridicon = require( 'components/gridicon' ),
 	Button = require( 'components/button' ),
 	SectionHeader = require( 'components/section-header' ),
 	HelpResult = require( './help-results/item' ),
@@ -104,12 +106,35 @@ const Help = React.createClass( {
 		);
 	},
 
+	getCoursesLink: function() {
+		return (
+			<div className="help__course-links">
+				<Card href="#/help/courses">
+					<Gridicon className="help__course-links-icon" icon="help" size={ 30 } />
+					<div>
+						<span className="help__course-links-title">
+							{ this.translate( 'Courses' ) }
+						</span>
+						<span className="help__course-links-content" >
+							{ this.translate( 'Learn how to make the most of your site with these courses and webinars' ) }
+						</span>
+					</div>
+				</Card>
+			</div>
+		);
+	},
+
 	render: function() {
+		const {
+			isEmailVerified,
+			isCoursesEnabled
+		} = this.props;
 		return (
 			<Main className="help">
 				<MeSidebarNavigation />
 				<HelpSearch />
-				{ ! this.props.isEmailVerified && <HelpUnverifiedWarning /> }
+				{ isCoursesEnabled && this.getCoursesLink() }
+				{ ! isEmailVerified && <HelpUnverifiedWarning /> }
 				{ this.getHelpfulArticles() }
 				{ this.getSupportLinks() }
 				<HappinessEngineers />

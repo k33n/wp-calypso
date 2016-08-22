@@ -25,7 +25,7 @@ module.exports = {
 		analytics.pageView.record( basePath, 'Help' );
 
 		renderWithReduxStore(
-			React.createElement( Help ),
+			<Help isCoursesEnabled={ config.isEnabled( 'help/courses' ) }/>,
 			document.getElementById( 'primary' ),
 			context.store
 		);
