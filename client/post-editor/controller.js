@@ -26,6 +26,7 @@ import { getSelectedSiteId } from 'state/ui/selectors';
 import { getEditorPostId, getEditorPath } from 'state/ui/editor/selectors';
 import { editPost } from 'state/posts/actions';
 import wpcom from 'lib/wp';
+import Dispatcher from 'dispatcher';
 
 function getPostID( context ) {
 	if ( ! context.params.post || 'new' === context.params.post ) {
@@ -136,8 +137,11 @@ function startEditingPostCopy( siteId, postToCopyId, context ) {
 		} );
 		context.store.dispatch( editPost( siteId, null, postAttributes ) );
 		actions.edit( postAttributes );
-	} ).catch( () => {
-		actions.startEditingNew( siteId, { type: 'post' } );
+	} ).catch( error => {
+		Dispatcher.handleServerAction( {
+			type: 'SET_POST_LOADING_ERROR',
+			error: error
+		} );
 	} );
 }
 
