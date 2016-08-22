@@ -7,7 +7,8 @@
 
 .product-purchase-features-list__item {
 	page-break-inside: avoid; // For Firefox
-	break-inside: avoid;
+	break-inside: avoid-column; // For IE
+	-webkit-column-break-inside: avoid; // For others
 
 	padding-top: 12px;
 }
