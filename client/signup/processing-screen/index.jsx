@@ -15,6 +15,10 @@ module.exports = React.createClass( {
 			return;
 		}
 
+		if ( this.props.hasCartItems ) {
+			return;
+		}
+
 		let email = this.props.user && this.props.user.email;
 
 		if ( !email ) {

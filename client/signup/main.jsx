@@ -328,7 +328,7 @@ const Signup = React.createClass( {
 				{ this.localeSuggestions() }
 				{
 					this.state.loadingScreenStartTime ?
-					<SignupProcessingScreen steps={ this.state.progress } user={ this.state.user } loginHandler={ this.state.loginHandler }/> :
+					<SignupProcessingScreen hasCartItems={ this.dependenciesContainCartItem( this.props.signupDependencies ) } steps={ this.state.progress } user={ this.state.user } loginHandler={ this.state.loginHandler }/> :
 					<CurrentComponent
 						path={ this.props.path }
 						step={ currentStepProgress }
@@ -347,6 +347,10 @@ const Signup = React.createClass( {
 				}
 			</div>
 		);
+	},
+
+	dependenciesContainCartItem( dependencies ) {
+		return dependencies.cartItem || dependencies.domainItem || dependencies.themeItem;
 	},
 
 	render() {
