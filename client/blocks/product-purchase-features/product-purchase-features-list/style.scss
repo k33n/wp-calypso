@@ -1,11 +1,11 @@
-.plan-purchase-features__list {
+.product-purchase-features-list {
 	@include breakpoint( ">1040px" ) {
 		column-count: 2;
 		column-gap: 12px;
 	}
 }
 
-.plan-purchase-features__item {
+.product-purchase-features-list__item {
 	@include breakpoint( ">1040px" ) {
 		display: inline-block;
 	}
@@ -13,25 +13,25 @@
 	margin-top: 12px;
 }
 
-.plan-purchase-features__item .purchase-detail {
+.product-purchase-features-list__item .purchase-detail {
 	background-color: $white;
 	border-radius: 0;
 	margin: 0;
 }
 
-.plan-purchase-features__item .purchase-detail .purchase-detail__content {
+.product-purchase-features-list__item .purchase-detail .purchase-detail__content {
 	@include breakpoint( "1040px-1280px" ) {
 		padding-right: 87px;
 	}
 }
 
-.plan-purchase-features__item .purchase-detail .purchase-detail__icon {
+.product-purchase-features-list__item .purchase-detail .purchase-detail__icon {
 	@include breakpoint( "1040px-1280px" ) {
 		right: 4px;
 	}
 }
 
-.plan-purchase-features__item .purchase-detail .button:not( .clipboard-button ) {
+.product-purchase-features-list__item .purchase-detail .button:not( .clipboard-button ) {
 	@include breakpoint( "<660px" ) {
 		width: 100%;
 		text-align: center;
