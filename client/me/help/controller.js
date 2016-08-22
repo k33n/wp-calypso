@@ -31,6 +31,20 @@ module.exports = {
 		);
 	},
 
+	courses: function( context ) {
+		var CoursesComponent = require( './help-courses' ),
+			basePath = route.sectionify( context.path );
+
+		analytics.pageView.record( basePath, 'Help > Courses' );
+
+		ReactDom.render(
+			<ReduxProvider store={ context.store } >
+				<CoursesComponent />
+			</ReduxProvider>,
+			document.getElementById( 'primary' )
+		);
+	},
+
 	contact: function( context ) {
 		var ContactComponent = require( './help-contact' ),
 			basePath = route.sectionify( context.path );
