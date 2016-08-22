@@ -9,8 +9,10 @@
 	page-break-inside: avoid; // For Firefox
 	break-inside: avoid;
 
-	@include breakpoint( "<1040px" ) {
-		margin-top: 12px;
+	&:not( :first-child ) {
+		@include breakpoint( "<1040px" ) {
+			padding-top: 12px;
+		}
 	}
 }
 
