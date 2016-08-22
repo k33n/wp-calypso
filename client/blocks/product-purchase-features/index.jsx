@@ -306,16 +306,16 @@ class PlanPurchaseFeatures extends Component {
 	render() {
 		const { isPlaceholder } = this.props;
 
-		const headerClasses = classNames( 'plan-purchase-features__header', {
+		const headerClasses = classNames( 'product-purchase-features__header', {
 			'is-placeholder': isPlaceholder
 		} );
 
 		return (
-			<div className="plan-purchase-features">
+			<div className="product-purchase-features">
 				<div className={ headerClasses }>
 					{ this.getPlanPurchaseHeader() }
 				</div>
-				<div className="plan-purchase-features__list">
+				<div className="product-purchase-features__list">
 					{ this.getPlanPurchaseFeatures() }
 				</div>
 			</div>

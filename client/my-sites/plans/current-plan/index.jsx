@@ -12,7 +12,7 @@ import { getPlansBySite } from 'state/sites/plans/selectors';
 import { getSelectedSite, getSelectedSiteId } from 'state/ui/selectors';
 import TrackComponentView from 'lib/analytics/track-component-view';
 import PlansNavigation from 'my-sites/upgrades/navigation';
-import PlanPurchaseFeatures from 'blocks/plan-purchase-features';
+import ProductPurchaseFeatures from 'blocks/product-purchase-features';
 import QuerySites from 'components/data/query-sites';
 import QuerySitePlans from 'components/data/query-site-plans';
 
@@ -50,7 +50,7 @@ class CurrentPlan extends Component {
 					selectedSite={ selectedSite }
 				/>
 
-				<PlanPurchaseFeatures
+				<ProductPurchaseFeatures
 					plan={ currentPlanSlug }
 					selectedSite={ selectedSite }
 					sitePlans={ sitePlans }
