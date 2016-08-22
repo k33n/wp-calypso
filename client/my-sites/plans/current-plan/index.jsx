@@ -22,8 +22,10 @@ import { plansList, PLAN_BUSINESS } from 'lib/plans/constants';
 
 class CurrentPlan extends Component {
 	static propTypes = {
+		selectedSiteId: PropTypes.number,
 		selectedSite: PropTypes.object,
-		sitePlans: PropTypes.object
+		sitePlans: PropTypes.object,
+		context: PropTypes.object
 	};
 
 	isLoading() {
