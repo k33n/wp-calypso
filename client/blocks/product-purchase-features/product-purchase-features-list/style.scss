@@ -6,9 +6,8 @@
 }
 
 .product-purchase-features-list__item {
-	@include breakpoint( ">1040px" ) {
-		display: inline-block;
-	}
+	page-break-inside: avoid; // For Firefox
+	break-inside: avoid;
 
 	margin-top: 12px;
 }

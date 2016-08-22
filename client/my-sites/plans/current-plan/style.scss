@@ -6,11 +6,12 @@
 }
 
 .current-plan__header-item {
-	@include breakpoint( ">1040px" ) {
-		display: inline-block;
-	}
+	page-break-inside: avoid; // For Firefox
+	break-inside: avoid;
 
-	margin-top: 12px;
+	@include breakpoint( "<1040px" ) {
+		margin-top: 12px;
+	}
 }
 
 .current-plan__header-item-content {
